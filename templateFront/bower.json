@@ -1,0 +1,28 @@
+{
+  "name": "template",
+  "version": "0.0.0",
+  "authors": [
+    "Andrew Trigg <andrewt51@hotmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.4",
+    "angular": "~1.4.7",
+    "firebase": "~2.3.1",
+    "bootstrap": "~3.3.5",
+    "angular-ui-router": "~0.2.15",
+    "font-awesome": "fontawesome#~4.4.0",
+    "sweetalert": "~1.1.3"
+  }
+}
