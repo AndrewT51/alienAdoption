@@ -1,3 +1,4 @@
+'use strict';
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var jwt = require('jsonwebtoken');
@@ -12,12 +13,13 @@ var User = new Schema({
 
 User.methods.setPassword = function(password){
   this.salt = crypto.randomBytes(16).toString('hex');
-  this.hash = crypto.pbkdf2sync(password,this.salt,1000,64).toString('hex');
+  this.hash = crypto.pbkdf2Sync(password,this.salt,1000,64).toString('hex');
 };
 
 User.methods.validPassword = function(password){
-  var hash = crypto.pbkdf2sync(password,this.salt,1000,64).toString('hex');
-  return hash === this.hash;
+  console.log(typeof password)
+  var hash = crypto.pbkdf2Sync(password,this.salt,1000,64).toString('hex');
+  return this.hash === hash;
 };
 
 User.methods.generateJWT = function(){

@@ -1,0 +1,17 @@
+<form ng-submit="submit(user)" class="col-sm-6 col-sm-offset-3">
+  <legend>Log in</legend>
+
+  <div class="form-group">
+    
+    <input type="text" class="form-control" id="" placeholder="Username" ng-model='user.name'>
+    <br>
+    <div ng-hide='stateName=="users.login"'>
+       <input  type="email" class="form-control" id="" placeholder="Email" ng-model='user.email'>
+      <br>
+    </div>
+    <input type="password" class="form-control" id="" placeholder="Password" ng-model='user.password'>
+  </div>
+ 
+
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
