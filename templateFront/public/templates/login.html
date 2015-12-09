@@ -5,7 +5,7 @@
     
     <input type="text" class="form-control" id="" placeholder="Username" ng-model='user.name'>
     <br>
-    <div ng-hide='stateName=="users.login"'>
+    <div ng-show='stateName=="users.login"'>
        <input  type="email" class="form-control" id="" placeholder="Email" ng-model='user.email'>
       <br>
     </div>
@@ -13,5 +13,6 @@
   </div>
  
 
-  <button type="submit" class="btn btn-primary">Submit</button>
+  <button type="submit" class="btn btn-primary col-sm-12">Submit</button>
+  <small class='alignRight'>Don't have an account? <a href='#'>Sign up</a></small>
 </form>
