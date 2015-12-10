@@ -1,18 +1,22 @@
 <form ng-submit="submit(user)" class="col-sm-6 col-sm-offset-3">
-  <legend>Log in</legend>
+  <legend ng-if="!signUpVisible">Login</legend>
+  <legend ng-if="signUpVisible">Sign up</legend>
 
   <div class="form-group">
     
     <input type="text" class="form-control" id="" placeholder="Username" ng-model='user.name'>
     <br>
-    <div ng-show='stateName=="users.login"'>
-       <input  type="email" class="form-control" id="" placeholder="Email" ng-model='user.email'>
-      <br>
-    </div>
-    <input type="password" class="form-control" id="" placeholder="Password" ng-model='user.password'>
-  </div>
+    <div ng-show='signUpVisible'>
+     <input  type="text" class="form-control" id="" placeholder="Full name" ng-model='user.fullName'>
+     <br>
+     <input  type="email" class="form-control" id="" placeholder="Email" ng-model='user.email'>
+     <br>
+   </div>
+   <input type="password" class="form-control" id="" placeholder="Password" ng-model='user.password'>
+ </div>
  
 
-  <button type="submit" class="btn btn-primary col-sm-12">Submit</button>
-  <small class='alignRight'>Don't have an account? <a href='#'>Sign up</a></small>
+ <button type="submit" class="btn btn-primary col-sm-12">Submit</button>
+ <small ng-if="!signUpVisible" class='alignRight'>Don't have an account? <a ng-click="signUpButton()">Sign up</a></small>
+ <small ng-if="signUpVisible" class='alignRight'>Already have an account? <a ng-click="signUpButton()">Login</a></small>
 </form>

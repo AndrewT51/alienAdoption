@@ -14,8 +14,9 @@
   <div class="collapse navbar-collapse navbar-ex1-collapse">
     <ul class="nav navbar-nav navbar-right">
 
-      <li><a ui-sref="users.login">Log in</a></li>
-      <li><a ui-sref="users.test">Test</a></li>
+      <li ng-if='status !== "loginCtrl" && !currentUser'><a ui-sref="users.login">Log in</a></li>
+      <li ng-if='currentUser'><a ui-sref="users.login">Log out</a></li>
+      <li><a ui-sref="users.pets">Pets</a></li>
 
     
       
