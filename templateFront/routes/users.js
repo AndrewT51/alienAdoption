@@ -2,10 +2,11 @@
 var express = require('express');
 var router = express.Router();
 var User = require('../models/user');
-// var jwt = require('jsonwebtoken');
 var atob = require('atob');
 var auth = require('./authMiddleware');
-// var auth = jwt({secret: process.env.SECRET, userProperty: 'payload'});
+var crypto = require('crypto');
+
+
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -16,7 +17,12 @@ router.post('/addUser', function(req,res){
   var user = new User();
   user.age= req.body.age;
   user.name= req.body.name;
+  user.email= req.body.email;
+  user.fullName= req.body.fullName;
   user.setPassword(req.body.password);
+  user.picUrl =   crypto.createHash('md5')
+                  .update('andrew.s.trigg@gmail.com')
+                  .digest("hex");
   user.save(function(err,user){
     if (err){
       res.send(err)

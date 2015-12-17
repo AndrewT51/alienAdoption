@@ -6,6 +6,7 @@ var Alien = new mongoose.Schema({
   strength: Number,
   speed: Number,
   url: String,
+  date_added: String,
   isAdopted: Boolean
 })
 

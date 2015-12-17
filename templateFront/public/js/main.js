@@ -31,10 +31,11 @@ var myApp = angular.module('myApp',['ui.router'])
 
 .controller('navCtrl',function($scope,$state){
   var namePortion = function(user){
-    return JSON.parse(atob(user.data.split('.')[1])).name;
+    return JSON.parse(atob(user.data.split('.')[1]));
   }
   if(!$scope.currentUser && localStorage.token){
-    $scope.currentUser = namePortion(JSON.parse(localStorage.token))
+    $scope.currentUser = namePortion(JSON.parse(localStorage.token)).name;
+    $scope.profilePic = "http://gravatar.com/avatar/" + namePortion(JSON.parse(localStorage.token)).picUrl;
     console.log(JSON.stringify(localStorage.token))
   }
   $scope.signUpVisible = false;
@@ -46,12 +47,16 @@ var myApp = angular.module('myApp',['ui.router'])
   })
   $scope.$on('log', function(_,user){
     // $scope.currentUser = JSON.parse(atob(user.data.split('.')[1])).name;
-    $scope.currentUser = namePortion(user);
+    $scope.currentUser = namePortion(user).name;
+    $scope.profilePic = "http://gravatar.com/avatar/" + namePortion(user).picUrl;
+    debugger;
     console.log('Look: ', $scope.currentUser)
   })
   $scope.logout = function(){
     console.log('logout')
     delete localStorage.token;
+    $scope.currentUser = null;
+    $scope.profilePic = null;
     $state.go('home')
   }
 })

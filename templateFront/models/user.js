@@ -8,7 +8,10 @@ var User = new Schema({
   name: String,
   age: Number,
   hash:String,
-  salt:String
+  salt:String,
+  email: String,
+  fullName: String,
+  picUrl:String
 });
 
 User.methods.setPassword = function(password){
@@ -30,6 +33,7 @@ User.methods.generateJWT = function(){
   return jwt.sign({
     _id: this._id,
     name: this.name,
+    picUrl: this.picUrl,
     exp: parseInt(exp.getTime()/1000)
   }, process.env.SECRET);
 };
