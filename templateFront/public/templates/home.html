@@ -15,7 +15,7 @@
     <ul class="nav navbar-nav navbar-right">
 
       <li ng-if='status !== "loginCtrl" && !currentUser'><a ui-sref="users.login">Log in</a></li>
-      <li ng-if='currentUser'><a ui-sref="users.login">Log out</a></li>
+      <li ng-if='currentUser'><a ng-click="logout()">Log out</a></li>
       <li><a ui-sref="users.pets">Pets</a></li>
 
     

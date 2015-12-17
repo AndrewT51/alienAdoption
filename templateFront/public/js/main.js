@@ -23,12 +23,20 @@ var myApp = angular.module('myApp',['ui.router'])
   .state('users.pets',{
     url:'/pets',
     templateUrl: '../templates/pets.html',
-    controller: 'petsCtrl'
+    controller: 'petsCtrl',
+
   })
 
 })
 
 .controller('navCtrl',function($scope,$state){
+  var namePortion = function(user){
+    return JSON.parse(atob(user.data.split('.')[1])).name;
+  }
+  if(!$scope.currentUser && localStorage.token){
+    $scope.currentUser = namePortion(JSON.parse(localStorage.token))
+    console.log(JSON.stringify(localStorage.token))
+  }
   $scope.signUpVisible = false;
   $scope.signUpButton = function (){
     $scope.signUpVisible = !$scope.signUpVisible;
@@ -37,30 +45,54 @@ var myApp = angular.module('myApp',['ui.router'])
     $scope.status = status
   })
   $scope.$on('log', function(_,user){
-    $scope.currentUser = JSON.parse(atob(user.data.split('.')[1])).name;
+    // $scope.currentUser = JSON.parse(atob(user.data.split('.')[1])).name;
+    $scope.currentUser = namePortion(user);
     console.log('Look: ', $scope.currentUser)
   })
+  $scope.logout = function(){
+    console.log('logout')
+    delete localStorage.token;
+    $state.go('home')
+  }
 })
 
 .controller('petsCtrl', function(userService,$state,$scope){
-  userService.findState($scope);
-  $scope.picArray = [
-    {
-      url:'/images/alien1.jpg',
-      name: "Roger"
+  userService.seeMarket()
+  .then(function successCallback(res){
+    console.log(res);
+    $scope.picArray= [];
+    res.data.forEach(function(pet){
+      $scope.picArray.push( {
+        url: pet.url,
+        name: pet.name,
+        strength: pet.strength,
+        speed: pet.speed,
+        age: pet.age
+      })
+
     },
-    {
-      url:'/images/alien2.jpg',
-      name: "Bobby"
-    },
-    {
-      url:'/images/alien3.jpg',
-      name: "Davis"
-    },
-    {
-      url:'/images/alien4.jpg',
-      name: "Steven"
-    }];
+    function errorCallback(){
+      console.log("Error")
+    })
+  // $scope.picArray = [
+  //   {
+  //     url:'/images/alien1.jpg',
+  //     name: 
+  //   },
+  //   {
+  //     url:'/images/alien2.jpg',
+  //     name: "Bobby"
+  //   },
+  //   {
+  //     url:'/images/alien3.jpg',
+  //     name: "Davis"
+  //   },
+  //   {
+  //     url:'/images/alien4.jpg',
+  //     name: "Steven"
+  //   }];
+
+  })
 
 
 })
@@ -84,7 +116,7 @@ var myApp = angular.module('myApp',['ui.router'])
 
 .directive('alienCard', function(){
   return {
-    template: "<h1 class='cardHeading'>{{pic.name}}</h1><br><img src='{{pic.url}}'>"
+    templateUrl: "/templates/test.html"
   }
 })
 

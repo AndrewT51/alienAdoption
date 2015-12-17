@@ -7,4 +7,15 @@ var myApp = angular.module('myApp')
     $scope.state = $state.current.controller;
     $scope.$emit('status', $scope.state)
   }
+  this.seeMarket = function(){
+    thing = localStorage.token ? JSON.parse(localStorage.token):"";
+    return $http({
+      method: 'GET',
+      url: 'aliens/market',
+      headers:{
+        "Authorization": "Bearer " + thing.data
+      },
+      "X-testing": "testing"
+    })
+  }
 })
