@@ -1,9 +1,17 @@
 body {
 }
-
-img {
+/** {
+  border: red 1px dotted;
+}*/
+.viewContainer img {
   width: 100%;
   height: 150px;
+}
+.viewContainer {
+  margin-top: 20px;
+}
+.userPanel button{
+  margin-top: 5px;
 }
 
 a:hover {
@@ -12,6 +20,9 @@ a:hover {
 }
 .navbar {
   border-radius: 0;
+  background-color: #4f4545;
+  margin: 0;
+  border: 0;
 }
 
 .alignRight{
@@ -24,12 +35,15 @@ a:hover {
   right: -100px;
 }
 
+
+
 .card {
-  max-width: 290px;
-  padding: 2px;
+  max-width: 270px;
+  /*padding: 2px;*/
   border: 3px black double;
   background-color: beige;
   text-align: center;
+
   margin-bottom: 10px;
 }
 
@@ -39,4 +53,16 @@ a:hover {
 /*.card img {
   max-width: 270px;
 }*/
+.userPanel {
+  height: 100vh;
+  background-color: #4f4545;
+}
+
+.userPanel>img {
+  display: block;
+  margin: 20px auto;
+  border-radius: 50%;
+  width:100px;
+
+}
 

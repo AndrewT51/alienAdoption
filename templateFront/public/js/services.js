@@ -8,14 +8,24 @@ var myApp = angular.module('myApp')
     $scope.$emit('status', $scope.state)
   }
   this.seeMarket = function(){
-    thing = localStorage.token ? JSON.parse(localStorage.token):"";
+    var thing = localStorage.token ? JSON.parse(localStorage.token):"";
     return $http({
       method: 'GET',
       url: 'aliens/market',
       headers:{
         "Authorization": "Bearer " + thing.data
-      },
-      "X-testing": "testing"
+      }
+    })
+  }
+
+  this.seeUsers = function(){
+    var thing = localStorage.token ? JSON.parse(localStorage.token):"";
+    return $http({
+      method: 'GET',
+      url: 'users/show',
+      headers:{
+        "Authorization": "Bearer " + thing.data
+      }
     })
   }
 })

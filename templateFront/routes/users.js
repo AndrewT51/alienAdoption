@@ -21,8 +21,9 @@ router.post('/addUser', function(req,res){
   user.fullName= req.body.fullName;
   user.setPassword(req.body.password);
   user.picUrl =   crypto.createHash('md5')
-                  .update('andrew.s.trigg@gmail.com')
+                  .update(req.body.email)
                   .digest("hex");
+  user.pets = [];
   user.save(function(err,user){
     if (err){
       res.send(err)
@@ -43,6 +44,19 @@ router.post('/login', function(req,res){
       var jwt = user.generateJWT();
       res.send(jwt)
     }
+  })
+})
+
+router.get('/show', auth, function(req,res){
+  User.find({},'name picUrl', function(err, user){
+    err ? res.send(err) : res.send(user);
+  })
+})
+
+router.get('/mypets/:pets',function(req,res){
+  User.findById(req.params.pets,'pets', function(err,user){
+    res.send(user)
+
   })
 })
 

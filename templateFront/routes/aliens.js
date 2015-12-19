@@ -1,9 +1,9 @@
 'use strict';
 var express = require('express');
 var router = express.Router();
-var auth = require('./authMiddleware')
-
-var Alien = require('../models/alien')
+var auth = require('./authMiddleware');
+var User = require('../models/user');
+var Alien = require('../models/alien');
 
 
 router.post('/addAlien', function(req,res){
@@ -17,6 +17,17 @@ router.post('/addAlien', function(req,res){
     if(err) res.send(err)
     res.send("Successfully saved")
   });
+})
+
+router.post('/adoptAlien/:user',function(req,res){
+  Alien.findById(req.body._id, function(err,alien){
+    User.findById(req.params.user, function(err,user){
+      user.pets.push(req.body._id)
+      user.save();
+      res.send(user)
+    })
+
+  })
 })
 
 router.get('/market', auth,function(req,res){

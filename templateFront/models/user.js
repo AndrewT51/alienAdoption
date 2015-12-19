@@ -11,7 +11,8 @@ var User = new Schema({
   salt:String,
   email: String,
   fullName: String,
-  picUrl:String
+  picUrl:String,
+  pets:[{type: mongoose.Schema.ObjectId, ref: 'Aliens' }]
 });
 
 User.methods.setPassword = function(password){

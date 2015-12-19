@@ -9,11 +9,13 @@ var myApp = angular.module('myApp',['ui.router'])
     templateUrl: '../templates/home.html',
     controller: 'navCtrl'
   })
+
   .state('users', { 
     abstract: true, 
     templateUrl: '/templates/home.html',
     controller: 'navCtrl'
   })
+
   .state('users.login',{
     url:'/login',
     templateUrl: '../templates/login.html',
@@ -23,8 +25,13 @@ var myApp = angular.module('myApp',['ui.router'])
   .state('users.pets',{
     url:'/pets',
     templateUrl: '../templates/pets.html',
-    controller: 'petsCtrl',
-
+    controller: 'petsCtrl'
+  })
+  
+  .state('users.users',{
+    url:'/users',
+    templateUrl: '../templates/users.html',
+    controller: 'usersCtrl'
   })
 
 })
@@ -32,6 +39,9 @@ var myApp = angular.module('myApp',['ui.router'])
 .controller('navCtrl',function($scope,$state){
   var namePortion = function(user){
     return JSON.parse(atob(user.data.split('.')[1]));
+  }
+  $scope.goToUsers = function(page){
+    $scope.$broadcast('change', page)
   }
   if(!$scope.currentUser && localStorage.token){
     $scope.currentUser = namePortion(JSON.parse(localStorage.token)).name;
@@ -49,7 +59,7 @@ var myApp = angular.module('myApp',['ui.router'])
     // $scope.currentUser = JSON.parse(atob(user.data.split('.')[1])).name;
     $scope.currentUser = namePortion(user).name;
     $scope.profilePic = "http://gravatar.com/avatar/" + namePortion(user).picUrl;
-    debugger;
+    // debugger;
     console.log('Look: ', $scope.currentUser)
   })
   $scope.logout = function(){
@@ -79,24 +89,10 @@ var myApp = angular.module('myApp',['ui.router'])
     function errorCallback(){
       console.log("Error")
     })
-  // $scope.picArray = [
-  //   {
-  //     url:'/images/alien1.jpg',
-  //     name: 
-  //   },
-  //   {
-  //     url:'/images/alien2.jpg',
-  //     name: "Bobby"
-  //   },
-  //   {
-  //     url:'/images/alien3.jpg',
-  //     name: "Davis"
-  //   },
-  //   {
-  //     url:'/images/alien4.jpg',
-  //     name: "Steven"
-  //   }];
 
+  })
+  $scope.$on('change',function(change){
+    $state.go('users.users')
   })
 
 
@@ -119,11 +115,41 @@ var myApp = angular.module('myApp',['ui.router'])
   }
 })
 
+.controller('usersCtrl',function($scope, userService){
+  userService.seeUsers()
+  .then(function successCallback(res){
+    $scope.users = [];
+    res.data.forEach(function(person){
+      $scope.users.push(person);
+  
+    })
+
+  })
+
+})
+
 .directive('alienCard', function(){
   return {
     templateUrl: "/templates/test.html"
   }
 })
+
+.directive('memberCard', function(){
+  return {
+    templateUrl: "/templates/userDetailsCard.html"
+  }
+})
+
+// .directive('outerHeight', function(){
+//   return{
+//     restrict:'A',
+//     link: function(scope, element){
+//        //using outerHeight() assumes you have jQuery
+//        //use Asok's method in comments if not using jQuery
+//        console.log(element.outerHeight()); 
+//     }
+//   };
+// });
 
 
 
