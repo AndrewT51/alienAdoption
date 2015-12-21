@@ -120,7 +120,7 @@ var myApp = angular.module('myApp',['ui.router'])
   .then(function successCallback(res){
     $scope.users = [];
     res.data.forEach(function(person){
-      $scope.users.push(person);
+      if(person.name !== $scope.currentUser) $scope.users.push(person);
   
     })
 

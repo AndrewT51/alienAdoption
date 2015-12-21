@@ -47,7 +47,7 @@ router.post('/login', function(req,res){
   })
 })
 
-router.get('/show', auth, function(req,res){
+router.get('/show', function(req,res){
   User.find({},'name picUrl', function(err, user){
     err ? res.send(err) : res.send(user);
   })

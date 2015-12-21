@@ -20,12 +20,17 @@ var myApp = angular.module('myApp')
 
   this.seeUsers = function(){
     var thing = localStorage.token ? JSON.parse(localStorage.token):"";
-    return $http({
+    var arrayOfUsers = $http({
       method: 'GET',
       url: 'users/show',
       headers:{
         "Authorization": "Bearer " + thing.data
       }
     })
+    console.log(arrayOfUsers)
+    return arrayOfUsers;
+  }
+  this.userId = function(){
+    
   }
 })
