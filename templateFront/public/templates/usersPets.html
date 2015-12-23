@@ -1,5 +1,53 @@
-
-
-<div class=" col-sm-6 col-md-4" ng-repeat="pic in ownedPets">
-  <alien-card></alien-card>
+<div class="mainGallery">
+  <table width="100%" border="0" cellspacing="0" cellpadding="0" class="bigtable" height="90%">
+    <tbody><tr>
+      <td align="center" valign="middle" class="left"><a href="javascript:void(0)" id="imgLeftBig" class="nextPreviousBig previousBig" style="opacity: 1;">Previous</a></td>
+      <td class="middleContent borderLR"><div id="carouselBig" class="mscarousel" style="width: 900px; height: 369px; overflow: hidden; position: relative;">
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+        <div class="child" id="carouselBig_mscchild" style="width: 11700px; left: -9000px;"><div class="set carouselBig_mscss carouselBigmsc_0">
+          <div ng-repeat="pic in ownedPets">
+            <div class="imgCaption"  >
+              <h2>{{pic.name}}</h2>
+              <h5>Marghoob Suleman | April 17, 2010</h5>
+              <p class="message" style="width: 900px; opacity: 1; display: none;">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+            </div>
+            <div class="imgImage"><img ng-src="{{pic.url ? pic.url  :null}}" width="550" height="100%"></div>
+            <div class="clear"></div>
+            </div>
+          </div><strong class="clear last"></strong></div></div></td>
+      <td align="center" class="right"><a href="javascript:void(0)" id="imgRightBig" class="nextPreviousBig nextBig">Next</a></td>
+    </tr>
+    <tr>
+      <td align="center" valign="middle" class="left footer"><a href="javascript:void(0)" id="imgLeftThumb" class="nextPrevious previous" style="opacity: 1;">Previous</a></td>
+      <td class="footer middleContent"><div>
+          <ul id="carouselThumb" class="gallerythumb mscarousel" style="padding-left: 2px; padding-right: 10px; width: 900px; height: 78px; overflow: hidden; position: relative;">
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+          <div class="child" id="carouselThumb_mscchild" style="width: 1822px; left: -1170px;"><li class="set carouselThumb_mscss carouselThumbmsc_0"><img src="images/gallery/thumbs/DSC_0143.jpg"></li><li class="set carouselThumb_mscss carouselThumbmsc_1"><img src="images/gallery/thumbs/DSC_0213.jpg"></li><li class="set carouselThumb_mscss carouselThumbmsc_2"><img src="images/gallery/thumbs/DSC_1834.jpg"></li><li class="set carouselThumb_mscss carouselThumbmsc_3"><img src="images/gallery/thumbs/DSC_2703.jpg"></li><li class="set carouselThumb_mscss carouselThumbmsc_4"><img src="images/gallery/thumbs/DSC_2704.jpg"></li><li class="set carouselThumb_mscss carouselThumbmsc_5"><img src="images/gallery/thumbs/DSC_2721.jpg"></li><li class="set carouselThumb_mscss carouselThumbmsc_6"><img src="images/gallery/thumbs/DSC_2731.jpg"></li><li class="set carouselThumb_mscss carouselThumbmsc_7"><img src="images/gallery/thumbs/DSC_2749.jpg"></li><li class="set carouselThumb_mscss carouselThumbmsc_8"><img src="images/gallery/thumbs/DSC_2751.jpg"></li><li class="set carouselThumb_mscss carouselThumbmsc_9"><img src="images/gallery/thumbs/DSC_2771.jpg"></li><li class="set carouselThumb_mscss carouselThumbmsc_10 active"><img src="images/gallery/thumbs/DSC_3481.jpg"></li><strong class="clear last"></strong></div></ul>
+        </div></td>
+      <td class="right footer" style="text-align:left"><a href="javascript:void(0)" id="imgRightThumb" class="nextPrevious next">Next</a></td>
+    </tr>
+  </tbody></table>
 </div>
+
+<!-- <div class=" col-sm-6 col-md-4" ng-repeat="pic in ownedPets">
+  <alien-card></alien-card>
+</div> -->
