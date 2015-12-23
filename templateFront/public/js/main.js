@@ -49,7 +49,7 @@ var myApp = angular.module('myApp',['ui.router'])
   if(!$scope.currentUser && localStorage.token){
     $scope.currentUser = namePortion(JSON.parse(localStorage.token)).name;
     $scope.profilePic = "http://gravatar.com/avatar/" + namePortion(JSON.parse(localStorage.token)).picUrl;
- 
+    idSvc.setUserId(JSON.parse(atob(JSON.parse(localStorage.token).data.split('.')[1]))._id);
   }
   $scope.signUpVisible = false;
   $scope.signUpButton = function (){
