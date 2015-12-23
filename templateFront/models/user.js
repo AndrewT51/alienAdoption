@@ -12,7 +12,7 @@ var User = new Schema({
   email: String,
   fullName: String,
   picUrl:String,
-  pets:[{type: mongoose.Schema.ObjectId, ref: 'Aliens' }]
+  pets:[{type: mongoose.Schema.ObjectId, ref: 'Alien' }]
 });
 
 User.methods.setPassword = function(password){

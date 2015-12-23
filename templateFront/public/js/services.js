@@ -1,5 +1,5 @@
 var myApp = angular.module('myApp')
-.service('userService', function ($http, $state) {
+.service('userService', function ($http, $state, idSvc) {
   this.login = function (data,url1,url2) {
     return $http.post(url1 + '/' + url2, data)
   }
@@ -27,10 +27,30 @@ var myApp = angular.module('myApp')
         "Authorization": "Bearer " + thing.data
       }
     })
-    console.log(arrayOfUsers)
     return arrayOfUsers;
   }
-  this.userId = function(){
-    
+
+  this.myPets = function(){
+    console.log(idSvc.getUserId)
+    return $http.get('users/myPets/'+ idSvc.getUserId)
   }
 })
+
+.factory('idSvc', function(){
+  return {
+    getUserId : '',
+    setUserId: function(id) {
+      this.getUserId = id
+    }
+  }
+})
+
+
+// return {
+//     data: {
+//       num:''
+//     },
+//     update: function(num) {
+//       this.data.num = num;  
+//     }
+//   };

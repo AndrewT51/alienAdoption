@@ -7,7 +7,7 @@ var Alien = new mongoose.Schema({
   speed: Number,
   url: String,
   date_added: String,
-  isAdopted: Boolean
+  isAdopted: {type:Boolean, default: false}
 })
 
 module.exports = mongoose.model('Alien', Alien);

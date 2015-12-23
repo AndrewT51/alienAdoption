@@ -33,20 +33,23 @@ var myApp = angular.module('myApp',['ui.router'])
     templateUrl: '../templates/users.html',
     controller: 'usersCtrl'
   })
+   .state('users.myPets',{
+    url:'/usersPets',
+    templateUrl: '../templates/usersPets.html',
+    controller: 'usersPetsCtrl'
+  })
 
 })
 
-.controller('navCtrl',function($scope,$state){
+.controller('navCtrl',function($scope,$state,userService,idSvc){
   var namePortion = function(user){
     return JSON.parse(atob(user.data.split('.')[1]));
   }
-  $scope.goToUsers = function(page){
-    $scope.$broadcast('change', page)
-  }
+
   if(!$scope.currentUser && localStorage.token){
     $scope.currentUser = namePortion(JSON.parse(localStorage.token)).name;
     $scope.profilePic = "http://gravatar.com/avatar/" + namePortion(JSON.parse(localStorage.token)).picUrl;
-    console.log(JSON.stringify(localStorage.token))
+ 
   }
   $scope.signUpVisible = false;
   $scope.signUpButton = function (){
@@ -56,25 +59,34 @@ var myApp = angular.module('myApp',['ui.router'])
     $scope.status = status
   })
   $scope.$on('log', function(_,user){
-    // $scope.currentUser = JSON.parse(atob(user.data.split('.')[1])).name;
     $scope.currentUser = namePortion(user).name;
     $scope.profilePic = "http://gravatar.com/avatar/" + namePortion(user).picUrl;
-    // debugger;
-    console.log('Look: ', $scope.currentUser)
   })
   $scope.logout = function(){
-    console.log('logout')
     delete localStorage.token;
     $scope.currentUser = null;
     $scope.profilePic = null;
+    idSvc.setUserId('');
     $state.go('home')
   }
 })
 
-.controller('petsCtrl', function(userService,$state,$scope){
+.controller('usersPetsCtrl', function($scope, userService){
+  // debugger;
+  if($scope.currentUser){
+    userService.myPets()
+  .then(function successCallback(data){
+    $scope.ownedPets = data.data
+  // debugger;
+  })
+}
+
+})
+
+.controller('petsCtrl', function(userService,$state,$scope,idSvc){
   userService.seeMarket()
   .then(function successCallback(res){
-    console.log(res);
+
     $scope.picArray= [];
     res.data.forEach(function(pet){
       $scope.picArray.push( {
@@ -91,22 +103,17 @@ var myApp = angular.module('myApp',['ui.router'])
     })
 
   })
-  $scope.$on('change',function(change){
-    $state.go('users.users')
-  })
-
-
 })
 
-.controller('loginCtrl',function($scope, $http, userService, $state){
+.controller('loginCtrl',function($scope, $http, userService, $state, idSvc){
   userService.findState($scope);
   $scope.submit = function(user){
     var loginOrSignup = user.hasOwnProperty("email") ? "addUser": "login";
     userService.login(user,'users',loginOrSignup)
     .then(function successCallback(response) {
       localStorage.token = JSON.stringify(response);
+      idSvc.setUserId(JSON.parse(atob(JSON.parse(localStorage.token).data.split('.')[1]))._id)
       $scope.$emit('log', response);
-      console.log(JSON.parse(localStorage.token))
       $state.go('users.pets')
 
     }, function errorCallback(error) {
@@ -121,11 +128,8 @@ var myApp = angular.module('myApp',['ui.router'])
     $scope.users = [];
     res.data.forEach(function(person){
       if(person.name !== $scope.currentUser) $scope.users.push(person);
-  
     })
-
   })
-
 })
 
 .directive('alienCard', function(){

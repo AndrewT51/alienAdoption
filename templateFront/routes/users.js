@@ -35,12 +35,11 @@ router.post('/addUser', function(req,res){
 })
 
 router.post('/login', function(req,res){
-  console.log(req.body)
   User.findOne({name:req.body.name}, function(err,user){
     if(!user || !user.validPassword(req.body.password)){
       res.send('Invalid login credentials')
     }else{
-      console.log('User' + user)
+
       var jwt = user.generateJWT();
       res.send(jwt)
     }
@@ -53,10 +52,13 @@ router.get('/show', function(req,res){
   })
 })
 
-router.get('/mypets/:pets',function(req,res){
-  User.findById(req.params.pets,'pets', function(err,user){
-    res.send(user)
-
+router.get('/mypets/:userId',function(req,res){
+  User.findById(req.params.userId,'pets')
+  .populate('pets')
+  .exec(function(err,petArray){
+     res.send(petArray.pets)
+      
+  
   })
 })
 
