@@ -31,7 +31,7 @@ router.post('/adoptAlien/:user',function(req,res){
 })
 
 router.get('/market', auth,function(req,res){
-  Alien.find({}, function(err,data){
+  Alien.find({isAdopted:false}, function(err,data){
     if(err){res.send(err)}
     res.send(data);
   })
