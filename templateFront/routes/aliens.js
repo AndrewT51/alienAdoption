@@ -22,7 +22,10 @@ router.post('/addAlien', function(req,res){
 router.post('/adoptAlien/:user',function(req,res){
   Alien.findById(req.body._id, function(err,alien){
     User.findById(req.params.user, function(err,user){
-      user.pets.push(req.body._id)
+      console.log(req.body)
+      alien.isAdopted = true;
+      user.pets.push(req.body._id);
+      alien.save();
       user.save();
       res.send(user)
     })

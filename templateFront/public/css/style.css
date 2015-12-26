@@ -113,7 +113,8 @@ h2, p {
   height: 20vh;
   overflow: hidden;
   z-index: 0;
-  border-top: solid black 2px;
+  border-top: solid black 3px;
+  border-bottom: solid black 2px;
 }
 
 .picArray img {
@@ -127,13 +128,12 @@ h2, p {
 #picHolder {
   width:40vw;
   height: 35vh;
-  margin: 5px auto;
+  margin: 5px 20px;
   border: black 1px solid;
 
 }
 
 .petNameHeading {
-
   text-align: center;
 }
 
@@ -166,11 +166,15 @@ h2, p {
   width: 100%;
   /*border: 0;*/
 }
+.textContainer{
+  width: 100%;
+}
 
 .focused {
   /*border: lightblue 1px solid; */
   /*width:30% !important;*/
-  z-index:10;
+  z-index:5;
   width: 150%;
 
 }
+

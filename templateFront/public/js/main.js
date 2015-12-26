@@ -92,14 +92,30 @@ var myApp = angular.module('myApp',['ui.router'])
       $scope.picArray.push( {
         url: pet.url,
         name: pet.name,
-        blurb:pet.blurb,
+        blurb:pet.blurb || "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas quibusdam, tenetur commodi aliquid sequi laudantium ratione officia, animi veniam, vitae libero a corrupti labore id doloribus assumenda perferendis aliquam repellendus mollitia. Repellat rem nulla in tempore ut illum adipisci saepe accusamus, quis animi, repudiandae ducimus ad modi quaerat minus quos",
         strength: pet.strength,
         speed: pet.speed,
-        age: pet.age
+        age: pet.age,
+        id: pet._id
         // focus: "unfocused",
         // id: i
       })
     })
+
+
+    $scope.adopt = function(index){
+        userService.adoptPet($scope.picArray[1].id)
+      .then(function successCallback(){
+        console.log('done')
+     
+        $scope.picArray.splice(1,1);
+        console.log($scope.picArray)
+        
+      
+        // $scope.picArray.slice(1,2);
+        // $scope.picArray.slice(1,2)
+      })
+    }
 
     // $scope.picArray.forEach(function(item){
     //   console.log(item)
@@ -120,6 +136,7 @@ var myApp = angular.module('myApp',['ui.router'])
       $("img[src$='"+$scope.picArray[1].url+"']").addClass("focused").removeClass("unfocused")
       $("#picHolder>img").addClass("focused").removeClass("unfocused")
     }
+  
       // $scope.picArray[2].focus=true;
       // console.log($scope.picArray)
     },

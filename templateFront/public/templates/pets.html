@@ -12,13 +12,15 @@
     <div id="mainItem">
     <div id="picContainer">
     </div><div id="textContainer">
+    
     <div id="picHolder">
       <img src="{{picArray[1].url}}" alt="" class="focused">
 
     </div>
+    
     <div class="petNameHeading">
       <div class="previous" ng-click="slideRight()"><i class="fa fa-arrow-circle-left"></i></div>
-      <h3 >{{picArray[1].name}}</h3>
+      <h3 ng-click="adopt($index)">{{picArray[1].name}}</h3>
       <div class="next" ng-click="slideLeft()"><i class="fa fa-arrow-circle-right"></i></div>
     </div>
     <!-- <div class="previous"></div> -->
@@ -36,6 +38,7 @@
 <div class="arrayEnd"></div>
 <div class="highlightContainer">
 <div class="highlightBlock"></div>
+
 </div>
 <!-- <script src="bower_components/jquery/dist/jquery.min.js"></script>
 <script src="theData.js"></script>

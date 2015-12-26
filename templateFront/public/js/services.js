@@ -17,6 +17,17 @@ var myApp = angular.module('myApp')
       }
     })
   }
+  this.adoptPet = function(petId){
+    var thing = localStorage.token ? JSON.parse(localStorage.token):"";
+    return $http({
+      method: 'POST',
+      url: 'aliens/adoptAlien/' + idSvc.getUserId,
+      data: {"_id" : petId},
+      headers:{
+        "Authorization": "Bearer " + thing.data
+      }
+    })
+  }
 
   this.seeUsers = function(){
     var thing = localStorage.token ? JSON.parse(localStorage.token):"";
@@ -30,7 +41,7 @@ var myApp = angular.module('myApp')
     return arrayOfUsers;
   }
 
-  this.myPets = function(){
+  this.myPets = function(petId){
     console.log(idSvc.getUserId)
     return $http.get('users/myPets/'+ idSvc.getUserId)
   }
