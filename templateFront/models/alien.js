@@ -4,6 +4,7 @@ var Alien = new mongoose.Schema({
   name: String,
   age: Number,
   strength: Number,
+  blurb: String,
   speed: Number,
   url: String,
   date_added: String,

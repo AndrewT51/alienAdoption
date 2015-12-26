@@ -88,21 +88,45 @@ var myApp = angular.module('myApp',['ui.router'])
   .then(function successCallback(res){
 
     $scope.picArray= [];
-    res.data.forEach(function(pet){
+    res.data.forEach(function(pet,i){
       $scope.picArray.push( {
         url: pet.url,
         name: pet.name,
+        blurb:pet.blurb,
         strength: pet.strength,
         speed: pet.speed,
         age: pet.age
+        // focus: "unfocused",
+        // id: i
       })
+    })
 
+    // $scope.picArray.forEach(function(item){
+    //   console.log(item)
+    //   $("#picHolder>*").addClass("focused").removeClass("unfocused")
+
+    // })
+
+    $("img[src$='"+$scope.picArray[1].url+"']").addClass("focused").removeClass("unfocused")
+    $scope.slideRight = function(){
+      $("img[src$='"+$scope.picArray[1].url+"']").addClass("unfocused").removeClass("focused")
+      $scope.picArray.push($scope.picArray.shift())
+      $("img[src$='"+$scope.picArray[1].url+"']").addClass("focused").removeClass("unfocused")
+      $("#picHolder>img").addClass("focused").removeClass("unfocused")
+    }
+    $scope.slideLeft = function(){
+      $("img[src$='"+$scope.picArray[1].url+"']").addClass("unfocused").removeClass("focused")
+      $scope.picArray.unshift($scope.picArray.pop())
+      $("img[src$='"+$scope.picArray[1].url+"']").addClass("focused").removeClass("unfocused")
+      $("#picHolder>img").addClass("focused").removeClass("unfocused")
+    }
+      // $scope.picArray[2].focus=true;
+      // console.log($scope.picArray)
     },
     function errorCallback(){
       console.log("Error")
     })
 
-  })
 })
 
 .controller('loginCtrl',function($scope, $http, userService, $state, idSvc){

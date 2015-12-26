@@ -8,10 +8,15 @@ body {
   height: 150px;
 }
 .viewContainer {
-  margin-top: 20px;
+  margin-top: 0px;
+  background-color: grey;
+  height: 95vh;
 }
 .userPanel button{
   margin-top: 5px;
+}
+.spacer {
+  margin-top: 20px;
 }
 
 a:hover {
@@ -54,7 +59,7 @@ a:hover {
   max-width: 270px;
 }*/
 .userPanel {
-  height: 100vh;
+  height: 95vh;
   background-color: #4f4545;
 }
 
@@ -66,3 +71,106 @@ a:hover {
 
 }
 
+#mainItem {
+
+  height: 70vh;
+  width: 100%;
+  background-color: grey;
+  display: inline-flex;
+  margin: 0;
+  margin-top: 1vh;
+}
+
+.next, .previous {
+   float: left;
+  height: 30px;
+  width: 30px;
+  background-color: lightgrey;
+  position: relative;
+  font-size: 1.6em;
+}
+
+.next{
+  float: right;
+ /* height: 30px;
+  width: 30px;
+  display: inline;
+  background-color: black;
+  position: relative;*/
+
+}
+
+
+h2, p {
+  display: inherit;
+}
+
+.picArray {
+  margin-top:-5px;
+  display: flex;
+  background-color: darkgrey;
+  width: 100%;
+  height: 20vh;
+  overflow: hidden;
+  z-index: 0;
+  border-top: solid black 2px;
+}
+
+.picArray img {
+  float:left;
+  width: 30%;
+  padding:0px;
+  margin:0;
+  position:relative;
+  left: -15%;
+}
+#picHolder {
+  width:40vw;
+  height: 35vh;
+  margin: 5px auto;
+  border: black 1px solid;
+
+}
+
+.petNameHeading {
+
+  text-align: center;
+}
+
+.petNameHeading>h3 {
+  display:inline;
+}
+
+.unfocused {
+  z-index:0;
+  opacity: .3;
+}
+
+.highlightContainer {
+  width: 100%;
+}
+.highlightBlock {
+  position: relative;
+  width: 36%;
+  height: 24vh;
+  z-index:2;
+  background-color: lightgrey;
+  left: 12%;
+  top: -22vh;
+  border: black 2px solid;
+
+}
+#picHolder> img {
+
+  height: 100%;
+  width: 100%;
+  /*border: 0;*/
+}
+
+.focused {
+  /*border: lightblue 1px solid; */
+  /*width:30% !important;*/
+  z-index:10;
+  width: 150%;
+
+}
