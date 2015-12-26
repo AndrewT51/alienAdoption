@@ -128,7 +128,7 @@ h2, p {
 #picHolder {
   width:40vw;
   height: 35vh;
-  margin: 5px 20px;
+  margin: 5px auto;
   border: black 1px solid;
 
 }
