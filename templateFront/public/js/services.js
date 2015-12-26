@@ -28,6 +28,18 @@ var myApp = angular.module('myApp')
       }
     })
   }
+  this.abandon = function(petId,index){
+      var thing = localStorage.token ? JSON.parse(localStorage.token):"";
+      return $http({
+      method: 'POST',
+      url: 'aliens/abandonAlien/' + idSvc.getUserId,
+      data: {"_id" : petId, "index": index},
+      headers:{
+        "Authorization": "Bearer " + thing.data
+      }
+    })
+
+  }
 
   this.seeUsers = function(){
     var thing = localStorage.token ? JSON.parse(localStorage.token):"";

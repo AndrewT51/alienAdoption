@@ -14,19 +14,19 @@
     </div><div id="textContainer">
     
     <div id="picHolder">
-      <img src="{{picArray[1].url}}" alt="" class="focused">
+      <img src="{{picArray[1].url ||picArray[0].url }}" alt="" class="focused">
 
     </div>
     
     <div class="petNameHeading">
       <div class="previous" ng-click="slideRight()"><i class="fa fa-arrow-circle-left"></i></div>
-      <h3 ng-click="adopt($index)">{{picArray[1].name}}</h3>
+      <h3 ng-click="adopt()">{{picArray[1].name ||picArray[0].name}} </h3>
       <div class="next" ng-click="slideLeft()"><i class="fa fa-arrow-circle-right"></i></div>
     </div>
     <!-- <div class="previous"></div> -->
     <!-- <img src="http://placehold.it/350x150"> -->
     <br>
-    <p>{{picArray[1].blurb}}</p>
+    <p>{{picArray[1].blurb|| picArray[0].blurb}}</p>
   </div>
  <!--  </div
   ><div class="next"> -->

@@ -33,7 +33,7 @@ var myApp = angular.module('myApp',['ui.router'])
     templateUrl: '../templates/users.html',
     controller: 'usersCtrl'
   })
-   .state('users.myPets',{
+  .state('users.myPets',{
     url:'/usersPets',
     templateUrl: '../templates/usersPets.html',
     controller: 'usersPetsCtrl'
@@ -72,14 +72,22 @@ var myApp = angular.module('myApp',['ui.router'])
 })
 
 .controller('usersPetsCtrl', function($scope, userService){
-  // debugger;
+
+  $scope.abandon = function(petId, index){
+    userService.abandon(petId, index)
+    .then(function(){
+      $scope.ownedPets.splice(index,1);
+    })
+
+  }
   if($scope.currentUser){
     userService.myPets()
-  .then(function successCallback(data){
-    $scope.ownedPets = data.data
-  // debugger;
-  })
-}
+    .then(function successCallback(data){
+      $scope.ownedPets = data.data;
+
+
+    })
+  }
 
 })
 
@@ -88,6 +96,7 @@ var myApp = angular.module('myApp',['ui.router'])
   .then(function successCallback(res){
 
     $scope.picArray= [];
+    var counter = 1 // = res.data.length-1;
     res.data.forEach(function(pet,i){
       $scope.picArray.push( {
         url: pet.url,
@@ -97,52 +106,63 @@ var myApp = angular.module('myApp',['ui.router'])
         speed: pet.speed,
         age: pet.age,
         id: pet._id
-        // focus: "unfocused",
-        // id: i
-      })
+  
+      });
+      setTimeout(function() {
+     
+        counter -= 1;
+        if ( counter === 0)
+          callback();
+      }, pet);
     })
 
+    function callback(){
+      console.log(res.data)
+      $(".picArray img[src$='"+$scope.picArray[1].url+"']").addClass("focused").removeClass("unfocused")
 
-    $scope.adopt = function(index){
-        userService.adoptPet($scope.picArray[1].id)
-      .then(function successCallback(){
-        console.log('done')
-     
-        $scope.picArray.splice(1,1);
-        console.log($scope.picArray)
-        
-      
-        // $scope.picArray.slice(1,2);
-        // $scope.picArray.slice(1,2)
+    }
+
+
+
+
+
+
+
+$scope.adopt = function(index){
+  userService.adoptPet($scope.picArray[1].id)
+  .then(function successCallback(){
+    console.log('done')
+    $scope.picArray.splice(1,1);
+    callback();
+
+
+   
+
       })
-    }
+}
 
-    // $scope.picArray.forEach(function(item){
-    //   console.log(item)
-    //   $("#picHolder>*").addClass("focused").removeClass("unfocused")
+ 
+console.log($("img[src$='"+$scope.picArray[2].url+"']"))
+$scope.slideRight = function(){
+  $("img[src$='"+$scope.picArray[1].url+"']").addClass("unfocused").removeClass("focused")
+  $scope.picArray.push($scope.picArray.shift())
+  $("img[src$='"+$scope.picArray[1].url+"']").addClass("focused").removeClass("unfocused")
+  $("#picHolder>img").addClass("focused").removeClass("unfocused")
+}
+$scope.slideLeft = function(){
+  $("img[src$='"+$scope.picArray[1].url+"']").addClass("unfocused").removeClass("focused")
+  $scope.picArray.unshift($scope.picArray.pop())
+  $("img[src$='"+$scope.picArray[1].url+"']").addClass("focused").removeClass("unfocused")
+  $("#picHolder>img").addClass("focused").removeClass("unfocused")
+}
 
-    // })
-
-    $("img[src$='"+$scope.picArray[1].url+"']").addClass("focused").removeClass("unfocused")
-    $scope.slideRight = function(){
-      $("img[src$='"+$scope.picArray[1].url+"']").addClass("unfocused").removeClass("focused")
-      $scope.picArray.push($scope.picArray.shift())
-      $("img[src$='"+$scope.picArray[1].url+"']").addClass("focused").removeClass("unfocused")
-      $("#picHolder>img").addClass("focused").removeClass("unfocused")
-    }
-    $scope.slideLeft = function(){
-      $("img[src$='"+$scope.picArray[1].url+"']").addClass("unfocused").removeClass("focused")
-      $scope.picArray.unshift($scope.picArray.pop())
-      $("img[src$='"+$scope.picArray[1].url+"']").addClass("focused").removeClass("unfocused")
-      $("#picHolder>img").addClass("focused").removeClass("unfocused")
-    }
-  
       // $scope.picArray[2].focus=true;
       // console.log($scope.picArray)
     },
     function errorCallback(){
       console.log("Error")
     })
+
 
 })
 

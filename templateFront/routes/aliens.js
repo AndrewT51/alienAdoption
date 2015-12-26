@@ -33,6 +33,20 @@ router.post('/adoptAlien/:user',function(req,res){
   })
 })
 
+router.post('/abandonAlien/:user',function(req,res){
+  Alien.findById(req.body._id, function(err,alien){
+    User.findById(req.params.user, function(err,user){
+      console.log(req.body)
+      alien.isAdopted = false;
+      user.pets.splice(req.body.index,1);
+      alien.save();
+      user.save();
+      res.send(user)
+    })
+
+  })
+})
+
 router.get('/market', auth,function(req,res){
   Alien.find({isAdopted:false}, function(err,data){
     if(err){res.send(err)}
