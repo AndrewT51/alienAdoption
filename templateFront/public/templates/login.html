@@ -4,7 +4,7 @@
 
   <div class="form-group">
     
-    <input type="text" class="form-control" id="" placeholder="Username" ng-model='user.name'>
+    <input type="text" class="form-control" id="" placeholder="Username" ng-model='user.name' ng-class="{redBox: redoLoginDetails}">
     <br>
     <div ng-show='signUpVisible'>
      <input  type="text" class="form-control" id="" placeholder="Full name" ng-model='user.fullName'>
@@ -12,7 +12,7 @@
      <input  type="email" class="form-control" id="" placeholder="Email" ng-model='user.email'>
      <br>
    </div>
-   <input type="password" class="form-control" id="" placeholder="Password" ng-model='user.password'>
+   <input type="password" class="form-control" id="" placeholder="Password" ng-model='user.password' ng-class="{redBox: redoLoginDetails}">
  </div>
  
 

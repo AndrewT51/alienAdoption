@@ -18,7 +18,9 @@ body {
 .spacer {
   margin-top: 20px;
 }
-
+.redBox {
+  border-color: red;
+}
 a:hover {
   text-decoration: none;
   cursor:pointer;
@@ -177,5 +179,33 @@ h2, p {
   width: 150%;
 
 }
+
+.userCard tr{
+  border:1px black solid;
+ 
+}
+.userCard img {
+  min-height: 40px;
+  min-width: 60px;
+  height: 10vh;
+  width: 15vh;
+  border: 1px solid black;
+}
+
+.userCard table {
+  width: 200%;
+  margin: 4px 4px;
+  background-color: lightgrey;
+
+}
+
+.userCard .nameCell {
+  width: 35%;
+}
+
+
+
+
+
 
 

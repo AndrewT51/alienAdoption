@@ -1,4 +1,12 @@
-<div class="userCard">
-  <img src="http://gravatar.com/avatar/{{user.picUrl}}s=150" alt="">
-  <h2 >{{user.name}}</h2>
+<div class="userCard" >
+  <table >
+    <tr >
+      <td><img src="http://gravatar.com/avatar/{{user.picUrl}}s=150" alt=""></td>
+      <td class="nameCell"><h2 >{{user.name}}</h2></td>
+      <td>This user has {{user.pets.length}} pets</td>
+    </tr>
+  </table>
+
+  
+  
 </div>

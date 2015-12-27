@@ -96,7 +96,7 @@ var myApp = angular.module('myApp',['ui.router'])
   .then(function successCallback(res){
 
     $scope.picArray= [];
-    var counter = 1 // = res.data.length-1;
+    var counter = 1 
     res.data.forEach(function(pet,i){
       $scope.picArray.push( {
         url: pet.url,
@@ -106,10 +106,10 @@ var myApp = angular.module('myApp',['ui.router'])
         speed: pet.speed,
         age: pet.age,
         id: pet._id
-  
+    
       });
       setTimeout(function() {
-     
+        
         counter -= 1;
         if ( counter === 0)
           callback();
@@ -122,12 +122,6 @@ var myApp = angular.module('myApp',['ui.router'])
 
     }
 
-
-
-
-
-
-
 $scope.adopt = function(index){
   userService.adoptPet($scope.picArray[1].id)
   .then(function successCallback(){
@@ -136,12 +130,10 @@ $scope.adopt = function(index){
     callback();
 
 
-   
-
       })
 }
 
- 
+
 console.log($("img[src$='"+$scope.picArray[2].url+"']"))
 $scope.slideRight = function(){
   $("img[src$='"+$scope.picArray[1].url+"']").addClass("unfocused").removeClass("focused")
@@ -156,41 +148,46 @@ $scope.slideLeft = function(){
   $("#picHolder>img").addClass("focused").removeClass("unfocused")
 }
 
-      // $scope.picArray[2].focus=true;
-      // console.log($scope.picArray)
     },
     function errorCallback(){
       console.log("Error")
     })
 
-
 })
 
 .controller('loginCtrl',function($scope, $http, userService, $state, idSvc){
-  userService.findState($scope);
+  // userService.findState($scope);
+  $scope.redoLoginDetails = false;
   $scope.submit = function(user){
     var loginOrSignup = user.hasOwnProperty("email") ? "addUser": "login";
     userService.login(user,'users',loginOrSignup)
     .then(function successCallback(response) {
+      console.log(response)
       localStorage.token = JSON.stringify(response);
       idSvc.setUserId(JSON.parse(atob(JSON.parse(localStorage.token).data.split('.')[1]))._id)
       $scope.$emit('log', response);
       $state.go('users.pets')
 
     }, function errorCallback(error) {
+
       console.log(error)
+      $scope.redoLoginDetails = true;
+      // $state.go('home')
     });
   }
 })
 
-.controller('usersCtrl',function($scope, userService){
+.controller('usersCtrl',function($scope, userService,$filter){
   userService.seeUsers()
   .then(function successCallback(res){
     $scope.users = [];
     res.data.forEach(function(person){
       if(person.name !== $scope.currentUser) $scope.users.push(person);
     })
+    $scope.users = $filter('orderBy')($scope.users, "pets.length", true)
+
   })
+
 })
 
 .directive('alienCard', function(){
@@ -205,16 +202,7 @@ $scope.slideLeft = function(){
   }
 })
 
-// .directive('outerHeight', function(){
-//   return{
-//     restrict:'A',
-//     link: function(scope, element){
-//        //using outerHeight() assumes you have jQuery
-//        //use Asok's method in comments if not using jQuery
-//        console.log(element.outerHeight()); 
-//     }
-//   };
-// });
+
 
 
 

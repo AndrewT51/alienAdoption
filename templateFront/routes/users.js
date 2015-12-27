@@ -37,7 +37,7 @@ router.post('/addUser', function(req,res){
 router.post('/login', function(req,res){
   User.findOne({name:req.body.name}, function(err,user){
     if(!user || !user.validPassword(req.body.password)){
-      res.send('Invalid login credentials')
+      res.status(401).send('Invalid login credentials')
     }else{
 
       var jwt = user.generateJWT();
@@ -47,7 +47,7 @@ router.post('/login', function(req,res){
 })
 
 router.get('/show', function(req,res){
-  User.find({},'name picUrl', function(err, user){
+  User.find({},'name picUrl pets', function(err, user){
     err ? res.send(err) : res.send(user);
   })
 })
