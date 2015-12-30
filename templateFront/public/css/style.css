@@ -72,6 +72,25 @@ a:hover {
   width:100px;
 
 }
+.modalPic>div{
+  text-align: center;
+  margin-top: 20px;
+  width: 200px;
+  float:left;
+}
+.modalPic img {
+  width:100px;
+  height: 60px;
+  float: left;
+  margin:5px;
+
+
+}
+.modalPic {
+
+  height: 70px;
+  border-bottom: dotted lightgrey 1px;
+}
 
 #mainItem {
 

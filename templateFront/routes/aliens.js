@@ -47,7 +47,7 @@ router.post('/abandonAlien/:user',function(req,res){
   })
 })
 
-router.get('/market', auth,function(req,res){
+router.get('/market',function(req,res){
   Alien.find({isAdopted:false}, function(err,data){
     if(err){res.send(err)}
     res.send(data);

@@ -85,7 +85,6 @@ var myApp = angular.module('myApp',['ui.router'])
     .then(function successCallback(data){
       $scope.ownedPets = data.data;
 
-
     })
   }
 
@@ -97,6 +96,7 @@ var myApp = angular.module('myApp',['ui.router'])
 
     $scope.picArray= [];
     var counter = 1 
+
     res.data.forEach(function(pet,i){
       $scope.picArray.push( {
         url: pet.url,
@@ -119,6 +119,7 @@ var myApp = angular.module('myApp',['ui.router'])
     function callback(){
       console.log(res.data)
       $(".picArray img[src$='"+$scope.picArray[1].url+"']").addClass("focused").removeClass("unfocused")
+      console.log($scope.picArray.length)
 
     }
 
@@ -187,6 +188,12 @@ $scope.slideLeft = function(){
     $scope.users = $filter('orderBy')($scope.users, "pets.length", true)
 
   })
+  $scope.action = function(user){
+    $('#myModal').modal('show')
+    $scope.modalUser = user;
+
+    console.log(user)
+  }
 
 })
 

@@ -47,7 +47,9 @@ router.post('/login', function(req,res){
 })
 
 router.get('/show', function(req,res){
-  User.find({},'name picUrl pets', function(err, user){
+  User.find({},'name picUrl pets')
+  .populate('pets')
+  .exec(function(err, user){
     err ? res.send(err) : res.send(user);
   })
 })
