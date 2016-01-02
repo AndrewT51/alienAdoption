@@ -38,6 +38,11 @@ var myApp = angular.module('myApp',['ui.router'])
     templateUrl: '../templates/usersPets.html',
     controller: 'usersPetsCtrl'
   })
+   .state('users.swap',{
+    url:'/usersSwap',
+    templateUrl: '../templates/usersSwap.html',
+    controller: 'usersSwapCtrl'
+  })
 
 })
 
@@ -117,9 +122,41 @@ var myApp = angular.module('myApp',['ui.router'])
     })
 
     function callback(){
-      console.log(res.data)
       $(".picArray img[src$='"+$scope.picArray[1].url+"']").addClass("focused").removeClass("unfocused")
-      console.log($scope.picArray.length)
+      if(!$scope.currentUser){
+        randomPicPlacer();
+      }
+
+    }
+
+    function randomPicPlacer(){
+      var cloneOfArray = $scope.picArray.slice();
+      $scope.disorderedArray = [];
+      while(cloneOfArray.length){
+        var chosenElement = Math.floor(Math.random() * cloneOfArray.length);
+        $scope.disorderedArray.push(cloneOfArray[chosenElement]);
+        cloneOfArray.splice(chosenElement,1)
+
+
+
+      }
+      for (var i = 0; i < $scope.picArray.length || i < 3; i ++){
+        
+        var xCoord = Math.floor(Math.random() * 70) + 10;
+        var yCoord = Math.floor(Math.random() * 70) + 10;
+        var picSize = Math.floor(Math.random() * -5)+ 13;
+        var randRatio = Math.floor(Math.random()*(-1)) + 1;
+        var randRotate = Math.floor(Math.random()*44) -22;
+        var height = picSize/randRatio;
+      
+
+
+        $('#picDisplayBoard').append("<a ><img src='"+$scope.disorderedArray[i].url+"' data-id='"+i+"' class='rotatedPics'></a>")
+        $('[data-id="'+i+'"]').css({display: 'inline-block',margin: picSize+'px '+ xCoord + 'px', top: xCoord+'%',left:yCoord + '%',width: picSize+'%', height:height+'%', margin:'5px',transform: 'rotateZ('+randRotate+'deg)', border:'1px black solid'}).css('background-color','#4f4545')
+        // $('[data-id="'+i+'"]').css({transform: 'rotateZ('+randRotate+'deg)'})
+        // $('.viewContainer').css('background-color','#4f4545');
+      }
+      
 
     }
 
@@ -194,6 +231,21 @@ $scope.slideLeft = function(){
 
     console.log(user)
   }
+
+})
+
+.controller('usersSwapCtrl', function($scope,userService){
+  userService.seeUsers()
+  .then(function successCallback(res){
+    $scope.users = [];
+    res.data.forEach(function(person){
+      if(person.name !== $scope.currentUser) $scope.users.push(person);
+    })
+    $scope.users = $filter('orderBy')($scope.users, "pets.length", true)
+
+  })
+
+  console.log('swapping')
 
 })
 
