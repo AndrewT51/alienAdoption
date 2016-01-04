@@ -224,13 +224,20 @@ $scope.slideLeft = function(){
     })
     $scope.users = $filter('orderBy')($scope.users, "pets.length", true)
 
-  })
-  $scope.action = function(user){
-    $('#myModal').modal('show')
-    $scope.modalUser = user;
 
-    console.log(user)
-  }
+  $scope.action = function(user,index){
+    // $('#myModal').modal('show')
+    // $scope.modalUser = user;
+
+    // console.log(user)
+    // if($scope.visibleUser === index){
+    //   $scope.visibleUser = null;
+    // }else{
+      $scope.visibleUser = index;
+    }
+
+  // }
+  })
 
 })
 

@@ -21,6 +21,8 @@ body {
   border-top: 4px black solid;
   border-bottom: 4px black solid;
 }
+
+
 .viewContainer img {
   width: 100%;
   height: 150px;
@@ -233,14 +235,65 @@ h2, p {
 
 .userCard table {
   width: 200%;
+  /*width: 60vw;*/
   margin: 4px 4px;
   background-color: lightgrey;
 
+}
+.userCard.bottomless table {
+  margin-bottom: 0;
+}
+.userCard .topless {
+  border-top-width: 0;
 }
 
 .userCard .nameCell {
   width: 35%;
 }
+
+.userCard .petsOwned table {
+/*  margin-top: -4px;
+  position: relative;
+  height: 10vh;
+  width: 80% ;
+  width:20vw;
+  left: 15vh;*/
+  border-collapse: collapse;
+  margin-top: 0;
+}
+.petsOwned tr{
+  position: relative;
+  left: 15vh;
+  border-width: 0;
+  border-collapse: collapse;
+  /*width: 2vw;*/
+}
+.petsOwned td {
+  border-top: 1px dotted black;
+}
+
+.swapButtonCell button{
+  margin-left: 5px;
+}
+.swapButtonCell {
+  border-left: 1px black solid
+}
+.petsOwned .blank {
+  width:15vh;
+  background-color: #808080;
+  border-top-width: 0px;
+}
+.ownedPetPicCell {
+  border-right: 1px black solid;
+}
+.ownedPetPicCell img{
+  width: 11vh;
+  height: 8vh;
+  border:2px solid lightgrey;
+  border-radius: 15%;
+  float: right;
+}
+
 
 /*.rotatedPics {
   border-style: solid;

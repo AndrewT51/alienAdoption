@@ -1,4 +1,4 @@
-<div class="userCard" ng-click="action(user,$index)" >
+<div class="userCard" ng-click="action(user,$index)" ng-class="{'bottomless':visibleUser === $index && user.pets.length}" >
   <table >
     <tr >
       <td><img src="http://gravatar.com/avatar/{{user.picUrl}}s=150" alt=""></td>
@@ -6,7 +6,18 @@
       <td>This user has {{user.pets.length}} pets</td>
     </tr>
   </table>
+  <div ng-if="visibleUser === $index && user.pets.length" class="userCard petsOwned" >
+    <table >
 
+    <tr ng-repeat="pet in user.pets" >
+      <td class="blank"></td>
+      <td class="swapButtonCell" ng-class="{'topless': $index === 0}"><button>Ask to make a swap</button></td>
+      <td class="ownedPetPicCell" ng-class="{'topless': $index === 0}"><img src="{{pet.url}}"></img></td>
+    </tr>
+    </table>
+   
+    <!-- <img src="{{pet.url}}" ></img> -->
+  </div>
   
   
 </div>
