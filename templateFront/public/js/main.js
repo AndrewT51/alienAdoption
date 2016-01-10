@@ -55,6 +55,7 @@ var myApp = angular.module('myApp',['ui.router'])
     $scope.currentUser = namePortion(JSON.parse(localStorage.token)).name;
     $scope.profilePic = "http://gravatar.com/avatar/" + namePortion(JSON.parse(localStorage.token)).picUrl;
     idSvc.setUserId(JSON.parse(atob(JSON.parse(localStorage.token).data.split('.')[1]))._id);
+    // $scope._id = namePortion(JSON.parse(localStorage.token))._id;
   }
   $scope.signUpVisible = false;
   $scope.signUpButton = function (){
@@ -66,6 +67,7 @@ var myApp = angular.module('myApp',['ui.router'])
   $scope.$on('log', function(_,user){
     $scope.currentUser = namePortion(user).name;
     $scope.profilePic = "http://gravatar.com/avatar/" + namePortion(user).picUrl;
+    // $scope._id = namePortion(user)._id;
   })
   $scope.logout = function(){
     delete localStorage.token;
@@ -215,7 +217,7 @@ $scope.slideLeft = function(){
   }
 })
 
-.controller('usersCtrl',function($scope, userService,$filter){
+.controller('usersCtrl',function($scope, userService,$filter,idSvc){
   userService.seeUsers()
   .then(function successCallback(res){
     $scope.users = [];
@@ -225,36 +227,45 @@ $scope.slideLeft = function(){
     $scope.users = $filter('orderBy')($scope.users, "pets.length", true)
 
 
-  $scope.action = function(user,index){
-    // $('#myModal').modal('show')
-    // $scope.modalUser = user;
+  $scope.action = function(index){
+    $scope.visibleUser = index;
+  }
+   $scope.swapPet = function(pet, user){
+    console.log(pet)
+    userService.sendmail(user, $scope.currentUser, pet)
+    .then(function successCallback(response){
+      console.log("mail sent to "+ user.email)
 
-    // console.log(user)
-    // if($scope.visibleUser === index){
-    //   $scope.visibleUser = null;
-    // }else{
-      $scope.visibleUser = index;
-    }
+    })
+    console.log(pet)
+    console.log(user)
+    console.log($scope.currentUser)
+
+  }
 
   // }
   })
 
 })
 
-.controller('usersSwapCtrl', function($scope,userService){
-  userService.seeUsers()
-  .then(function successCallback(res){
-    $scope.users = [];
-    res.data.forEach(function(person){
-      if(person.name !== $scope.currentUser) $scope.users.push(person);
-    })
-    $scope.users = $filter('orderBy')($scope.users, "pets.length", true)
+// .controller('usersSwapCtrl', function($scope,userService){
+//   userService.seeUsers()
+//   .then(function successCallback(res){
+//     $scope.users = [];
+//     res.data.forEach(function(person){
+//       if(person.name !== $scope.currentUser) $scope.users.push(person);
+//     })
+//     $scope.users = $filter('orderBy')($scope.users, "pets.length", true)
+//     $scope.swapPet = function(pet){
+//       console.log(pet)
 
-  })
+//     }
 
-  console.log('swapping')
+//   })
 
-})
+//   console.log('swapping')
+
+// })
 
 .directive('alienCard', function(){
   return {

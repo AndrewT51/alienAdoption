@@ -41,6 +41,41 @@ var myApp = angular.module('myApp')
 
   }
 
+  this.sendmail = function(receiver, sender,pet){
+    // var myId = idSvc.getUserId;
+    var thing = localStorage.token ? JSON.parse(localStorage.token):"";
+    // var pet = this.myPets()
+    // .then(console.log(pet))
+    
+    return  $http({
+      method: 'POST',
+      url: 'users/sendmail',
+      data: {"recipient" : receiver , "sender": sender, "pet": pet},
+      // data: {"recipient" : receiver , "sender": sender},
+      headers:{
+        "Authorization": "Bearer " + thing.data
+      }
+    })
+      
+    
+
+
+  }
+  
+  // this.detailsById = function(id){
+  //   var thing = localStorage.token ? JSON.parse(localStorage.token):"";
+  //   var arrayOfUsers = $http({
+  //     method: 'GET',
+  //     url: 'users/byId/' + id,
+  //     headers:{
+  //       "Authorization": "Bearer " + thing.data
+  //     }
+  //   })
+  //   return aUser;
+  // }
+
+
+
   this.seeUsers = function(){
     var thing = localStorage.token ? JSON.parse(localStorage.token):"";
     var arrayOfUsers = $http({

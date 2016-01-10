@@ -5,6 +5,9 @@ var User = require('../models/user');
 var atob = require('atob');
 var auth = require('./authMiddleware');
 var crypto = require('crypto');
+var Mailgun = require('mailgun-js');
+var myTestEmail = "andrewt51@hotmail.com";
+var email = require('../email');
 
 
 
@@ -47,12 +50,20 @@ router.post('/login', function(req,res){
 })
 
 router.get('/show', function(req,res){
-  User.find({},'name picUrl pets')
+  User.find({},'name picUrl pets email')
   .populate('pets')
   .exec(function(err, user){
     err ? res.send(err) : res.send(user);
   })
 })
+
+// router.get('/show', function(req,res){
+//   User.find({},'name picUrl pets email')
+//   .populate('pets')
+//   .exec(function(err, user){
+//     err ? res.send(err) : res.send(user);
+//   })
+// })
 
 router.get('/mypets/:userId',function(req,res){
   User.findById(req.params.userId,'pets')
@@ -67,6 +78,31 @@ router.get('/mypets/:userId',function(req,res){
 router.get('/hello', auth, function(req,res){
   res.send('yippee')
 })
+
+router.post('/sendmail', function (req, res) {
+
+  console.log(req.body)
+  var mailgun = new Mailgun({
+    apiKey: process.env.MAILGUN_KEY,
+    domain: process.env.MAILGUN_DOMAIN
+  });
+  var data = {
+    from: 'AlienAdoption@hotmail.com',
+    to: myTestEmail || req.body.recipient.email, 
+    subject: req.body.sender + " wants to swap pets with you",
+    html: email(req).greeting + email(req).paragraph + email(req).pictures
+  }
+  mailgun.messages().send(data, function (err, body) {
+    if (err) {
+      res.send(err)
+    } else {
+      res.status('submitted').send({
+        email: req.body.recipient.email
+      });
+    }
+  });
+
+});
 
 
 module.exports = router;
