@@ -41,7 +41,7 @@ var myApp = angular.module('myApp')
 
   }
 
-  this.sendmail = function(receiver, sender,pet){
+  this.sendmail = function(receiver, sender,pet, petToSwap){
     // var myId = idSvc.getUserId;
     var thing = localStorage.token ? JSON.parse(localStorage.token):"";
     // var pet = this.myPets()
@@ -50,7 +50,7 @@ var myApp = angular.module('myApp')
     return  $http({
       method: 'POST',
       url: 'users/sendmail',
-      data: {"recipient" : receiver , "sender": sender, "pet": pet},
+      data: {"recipient" : receiver , "sender": sender, "pet": pet, "swap":petToSwap},
       // data: {"recipient" : receiver , "sender": sender},
       headers:{
         "Authorization": "Bearer " + thing.data

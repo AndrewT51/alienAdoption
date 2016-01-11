@@ -38,7 +38,7 @@ var myApp = angular.module('myApp',['ui.router'])
     templateUrl: '../templates/usersPets.html',
     controller: 'usersPetsCtrl'
   })
-   .state('users.swap',{
+  .state('users.swap',{
     url:'/usersSwap',
     templateUrl: '../templates/usersSwap.html',
     controller: 'usersSwapCtrl'
@@ -113,10 +113,10 @@ var myApp = angular.module('myApp',['ui.router'])
         speed: pet.speed,
         age: pet.age,
         id: pet._id
-    
+
       });
       setTimeout(function() {
-        
+
         counter -= 1;
         if ( counter === 0)
           callback();
@@ -143,14 +143,14 @@ var myApp = angular.module('myApp',['ui.router'])
 
       }
       for (var i = 0; i < $scope.picArray.length || i < 3; i ++){
-        
+
         var xCoord = Math.floor(Math.random() * 70) + 10;
         var yCoord = Math.floor(Math.random() * 70) + 10;
         var picSize = Math.floor(Math.random() * -5)+ 13;
         var randRatio = Math.floor(Math.random()*(-1)) + 1;
         var randRotate = Math.floor(Math.random()*44) -22;
         var height = picSize/randRatio;
-      
+
 
 
         $('#picDisplayBoard').append("<a ><img src='"+$scope.disorderedArray[i].url+"' data-id='"+i+"' class='rotatedPics'></a>")
@@ -162,36 +162,36 @@ var myApp = angular.module('myApp',['ui.router'])
 
     }
 
-$scope.adopt = function(index){
-  userService.adoptPet($scope.picArray[1].id)
-  .then(function successCallback(){
-    console.log('done')
-    $scope.picArray.splice(1,1);
-    callback();
+    $scope.adopt = function(index){
+      userService.adoptPet($scope.picArray[1].id)
+      .then(function successCallback(){
+        console.log('done')
+        $scope.picArray.splice(1,1);
+        callback();
 
 
       })
-}
+    }
 
 
-console.log($("img[src$='"+$scope.picArray[2].url+"']"))
-$scope.slideRight = function(){
-  $("img[src$='"+$scope.picArray[1].url+"']").addClass("unfocused").removeClass("focused")
-  $scope.picArray.push($scope.picArray.shift())
-  $("img[src$='"+$scope.picArray[1].url+"']").addClass("focused").removeClass("unfocused")
-  $("#picHolder>img").addClass("focused").removeClass("unfocused")
-}
-$scope.slideLeft = function(){
-  $("img[src$='"+$scope.picArray[1].url+"']").addClass("unfocused").removeClass("focused")
-  $scope.picArray.unshift($scope.picArray.pop())
-  $("img[src$='"+$scope.picArray[1].url+"']").addClass("focused").removeClass("unfocused")
-  $("#picHolder>img").addClass("focused").removeClass("unfocused")
-}
+    console.log($("img[src$='"+$scope.picArray[2].url+"']"))
+    $scope.slideRight = function(){
+      $("img[src$='"+$scope.picArray[1].url+"']").addClass("unfocused").removeClass("focused")
+      $scope.picArray.push($scope.picArray.shift())
+      $("img[src$='"+$scope.picArray[1].url+"']").addClass("focused").removeClass("unfocused")
+      $("#picHolder>img").addClass("focused").removeClass("unfocused")
+    }
+    $scope.slideLeft = function(){
+      $("img[src$='"+$scope.picArray[1].url+"']").addClass("unfocused").removeClass("focused")
+      $scope.picArray.unshift($scope.picArray.pop())
+      $("img[src$='"+$scope.picArray[1].url+"']").addClass("focused").removeClass("unfocused")
+      $("#picHolder>img").addClass("focused").removeClass("unfocused")
+    }
 
-    },
-    function errorCallback(){
-      console.log("Error")
-    })
+  },
+  function errorCallback(){
+    console.log("Error")
+  })
 
 })
 
@@ -227,23 +227,32 @@ $scope.slideLeft = function(){
     $scope.users = $filter('orderBy')($scope.users, "pets.length", true)
 
 
-  $scope.action = function(index){
-    $scope.visibleUser = index;
-  }
-   $scope.swapPet = function(pet, user){
-    console.log(pet)
-    userService.sendmail(user, $scope.currentUser, pet)
-    .then(function successCallback(response){
-      console.log("mail sent to "+ user.email)
+    $scope.action = function(index){
+      $scope.visibleUser = index;
+    }
 
-    })
-    console.log(pet)
-    console.log(user)
-    console.log($scope.currentUser)
 
-  }
+    $scope.swapPet = function(pet, user){
+      $scope.thisPet = pet;
+      userService.myPets()
+      .then(function successCallback(res){
+        $scope.pets = res.data
+      })
+      $('#myModal').modal('show')
+      $scope.swapChoice = function(petToSwap){
+        console.log(petToSwap)
+        $('#myModal').modal('hide')
+        userService.sendmail(user, $scope.currentUser, pet, petToSwap)
+        .then(function successCallback(response){
+          console.log("mail sent to "+ user.email)
 
-  // }
+        })
+
+      }
+
+
+
+    }
   })
 
 })

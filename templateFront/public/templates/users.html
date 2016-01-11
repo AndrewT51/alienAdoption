@@ -13,11 +13,14 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">{{modalUser.name}}'s pets:</h4>
+        <h4 class="modal-title">You want to swap a pet for {{thisPet.name}}:</h4>
       </div>
       <div class="modal-body">
+
+          <img src="{{thisPet.url}}" alt="" >
+          <h4>Which of your pets would you like to offer?</h4>
        
-        <div ng-repeat="pet in modalUser.pets" class="modalPic">
+        <div ng-repeat="pet in pets" class="modalPic" ng-click="swapChoice(pet)">
           <div>{{pet.name}}</div>
           <img src="{{pet.url}}" alt="" >
         </div>
