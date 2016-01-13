@@ -10,9 +10,10 @@ router.post('/addAlien', function(req,res){
   var alien = new Alien();
   alien.name = req.body.name;
   alien.age = req.body.age;
-  alien.speed = req.body.speed;
-  alien.strength = req.body.strength;
-  alien.url = req.body.url;
+  alien.speed = req.body.speed || 2;
+  alien.strength = req.body.strength || 2;
+  alien.blurb = req.body.blurb || "No data";
+  alien.url = req.body.url||"https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQFVZEQgLCWhYDtoDc5yJ_WVhS4XmjBX4ArSV7gmT-QQiP9kjRpug";
   alien.save(function(err, data){
     if(err) res.send(err)
     res.send("Successfully saved")

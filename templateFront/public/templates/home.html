@@ -17,20 +17,21 @@
       <li ng-if='status !== "loginCtrl" && !currentUser'><a ui-sref="users.login">Log in</a></li>
       <li ng-if='currentUser'><a ng-click="logout()">Log out</a></li>
       <li><a ui-sref="users.pets">Pets</a></li>
+      <li><a ui-sref="users.myPets" class="visible-xs">See my pets</a></li>
+      <li><a ui-sref="users.users" class="visible-xs">See other users</a></li>
+      <li><a ui-sref="users.addPet" class="visible-xs">Add a pet</a></li>
 
     
       
     </ul>
   </div><!-- /.navbar-collapse -->
 </nav>
-<div ng-if="currentUser" class="userPanel col-xs-4 col-sm-3 col-md-2" >
+<div ng-if="currentUser" class="userPanel col-sm-3  col-md-2 hidden-xs" >
   <img ng-src="{{profilePic ? (profilePic +'s=150'):null}}"/>
   <button class="btn btn-default col-xs-12" ui-sref="users.myPets">See my pets</button>
   <button class="btn btn-default col-xs-12" ui-sref="users.users">See other users</button>
-  <button class="btn btn-default col-xs-12">Add a pet</button>
-  <button class="btn btn-default col-xs-12"></button>
-  <button class="btn btn-default col-xs-12"></button>
+  <button class="btn btn-default col-xs-12" ui-sref="users.addPet">Add a pet</button>
 </div>
 
-<div ng-if="!currentUser" class="col-xs-12 viewContainer" ui-view></div>
-<div ng-if="currentUser"class="col-xs-8 col-sm-9 col-md-10 viewContainer" ui-view></div>
+<div ng-if="!currentUser" class="col-sm-12 viewContainer" ui-view></div>
+<div ng-if="currentUser"class="col-sm-9  col-md-10 viewContainer" ui-view></div>

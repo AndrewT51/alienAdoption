@@ -43,6 +43,11 @@ var myApp = angular.module('myApp',['ui.router'])
     templateUrl: '../templates/usersSwap.html',
     controller: 'usersSwapCtrl'
   })
+   .state('users.addPet',{
+    url:'/addPet',
+    templateUrl: '../templates/addPet.html',
+    controller: 'addPetCtrl'
+  })
 
 })
 
@@ -254,6 +259,20 @@ var myApp = angular.module('myApp',['ui.router'])
 
     }
   })
+
+})
+
+.controller('addPetCtrl', function($scope, userService){
+  console.log('add pet controller')
+  $scope.submit = function(){
+    userService.addPet($scope.pet)
+    .then(function successCallback(response){
+          console.log(response);
+          $scope.pet = '';
+
+        })
+
+  }
 
 })
 

@@ -1,0 +1,20 @@
+<form ng-submit="submit()" class="col-sm-6 col-sm-offset-3">
+  <legend>Enter your pet's details:</legend>
+
+  <div class="form-group">
+    <label for="petName">Pet name:</label>
+    <input type="text" class="form-control" id="petName"  ng-model='pet.name' ng-class="{redBox: redoLoginDetails}">
+    <br>
+    <label for="picUrl">URL to picture:</label>
+    <input  type="text" class="form-control" id="picUrl" value="http://" ng-model='pet.url'>
+     <br>
+     <label for="petAge">Age of pet:</label>
+     <input  type="number" class="form-control" id="petAge" value="http://"  min="1" ng-model='pet.age'>
+     <br>
+   <label for="petBlurb">Blurb about pet:</label>
+   <textarea type="password" class="form-control" id="petBlurb"  ng-model='pet.blurb' ng-class="{redBox: redoLoginDetails}"/>
+ </div>
+ 
+
+ <button type="submit" class="btn btn-primary col-sm-12">Submit</button>
+</form>

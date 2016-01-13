@@ -7,6 +7,19 @@ var myApp = angular.module('myApp')
     $scope.state = $state.current.controller;
     $scope.$emit('status', $scope.state)
   }
+
+  this.addPet = function(pet){
+    var thing = localStorage.token ? JSON.parse(localStorage.token):"";
+    return $http({
+      method: 'POST',
+      url: 'aliens/addAlien',
+      data: pet,
+      headers:{
+        "Authorization": "Bearer " + thing.data
+      }
+    })
+  }
+
   this.seeMarket = function(){
     var thing = localStorage.token ? JSON.parse(localStorage.token):"";
     return $http({
@@ -28,6 +41,7 @@ var myApp = angular.module('myApp')
       }
     })
   }
+
   this.abandon = function(petId,index){
       var thing = localStorage.token ? JSON.parse(localStorage.token):"";
       return $http({
@@ -38,14 +52,10 @@ var myApp = angular.module('myApp')
         "Authorization": "Bearer " + thing.data
       }
     })
-
   }
 
   this.sendmail = function(receiver, sender,pet, petToSwap){
-    // var myId = idSvc.getUserId;
     var thing = localStorage.token ? JSON.parse(localStorage.token):"";
-    // var pet = this.myPets()
-    // .then(console.log(pet))
     
     return  $http({
       method: 'POST',
@@ -57,25 +67,8 @@ var myApp = angular.module('myApp')
       }
     })
       
-    
-
-
   }
   
-  // this.detailsById = function(id){
-  //   var thing = localStorage.token ? JSON.parse(localStorage.token):"";
-  //   var arrayOfUsers = $http({
-  //     method: 'GET',
-  //     url: 'users/byId/' + id,
-  //     headers:{
-  //       "Authorization": "Bearer " + thing.data
-  //     }
-  //   })
-  //   return aUser;
-  // }
-
-
-
   this.seeUsers = function(){
     var thing = localStorage.token ? JSON.parse(localStorage.token):"";
     var arrayOfUsers = $http({
@@ -103,12 +96,3 @@ var myApp = angular.module('myApp')
   }
 })
 
-
-// return {
-//     data: {
-//       num:''
-//     },
-//     update: function(num) {
-//       this.data.num = num;  
-//     }
-//   };
