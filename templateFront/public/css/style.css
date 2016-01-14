@@ -15,6 +15,7 @@ body {
   margin-top: 5%;
   left: -15%;
   height:60%;
+  max-height:70vh;
   width:125%;
   overflow: hidden;
   background-color:#4f4545;
@@ -23,6 +24,7 @@ body {
 }
 #picDisplayBoard img {
   height: 150px;
+  min-width:100px;
 
   }
 /*.card>img{
@@ -170,6 +172,7 @@ h2, p {
 .picArray img {
   float:left;
   width: 30%;
+  min-width: 30%;
   padding:0px;
   margin:0;
   position:relative;
@@ -216,7 +219,7 @@ h2, p {
   width: 100%;
   /*border: 0;*/
 }
-.textContainer{
+#textContainer{
   width: 100%;
 }
 

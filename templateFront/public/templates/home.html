@@ -17,10 +17,11 @@
       <li ng-if='status !== "loginCtrl" && !currentUser'><a ui-sref="users.login">Log in</a></li>
       <li ng-if='currentUser'><a ng-click="logout()">Log out</a></li>
       <li><a ui-sref="users.pets">Pets</a></li>
-      <li><a ui-sref="users.myPets" class="visible-xs">See my pets</a></li>
-      <li><a ui-sref="users.users" class="visible-xs">See other users</a></li>
-      <li><a ui-sref="users.addPet" class="visible-xs">Add a pet</a></li>
-
+      
+      <li ng-if="currentUser"><a ui-sref="users.myPets" class="visible-xs">See my pets</a></li>
+      <li ng-if="currentUser"><a ui-sref="users.users" class="visible-xs">See other users</a></li>
+      <li ng-if="currentUser"><a ui-sref="users.addPet" class="visible-xs">Add a pet</a></li>
+    
     
       
     </ul>
