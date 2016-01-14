@@ -25,7 +25,9 @@ body {
   height: 150px;
 
   }
-
+/*.card>img{
+  height:150px;
+}*/
 
 .viewContainer img {
   width: 100%;
@@ -85,6 +87,7 @@ a:hover {
 }
 .card img {
   max-width: 270px;
+  height: 150px;
 }
 .userPanel {
   height: 95vh;
@@ -95,7 +98,7 @@ a:hover {
   display: block;
   margin: 20px auto;
   border-radius: 50%;
-  width:15vw;
+  width:11vw;
 
 }
 .modalPic>div, .modalPic button{
@@ -298,6 +301,25 @@ h2, p {
   float: right;
 }
 
+.noteBox {
+  margin-top: 5px;
+  height: 80px;
+  
+  /*bottom: 30px;
+  left: 20px;*/
+  /*background-color: blue;*/
+}
+
+.noteBox>div {
+  height: 40px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  background-color: #4F4545;
+}
+.noteBox span {
+  font-size: 2em;
+  color: red;
+}
 
 /*.rotatedPics {
   border-style: solid;

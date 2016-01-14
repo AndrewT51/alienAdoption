@@ -55,6 +55,7 @@ var myApp = angular.module('myApp',['ui.router'])
   var namePortion = function(user){
     return JSON.parse(atob(user.data.split('.')[1]));
   }
+  $scope.numOfNotices = 0;
 
   if(!$scope.currentUser && localStorage.token){
     $scope.currentUser = namePortion(JSON.parse(localStorage.token)).name;
@@ -276,34 +277,21 @@ var myApp = angular.module('myApp',['ui.router'])
 
 })
 
-// .controller('usersSwapCtrl', function($scope,userService){
-//   userService.seeUsers()
-//   .then(function successCallback(res){
-//     $scope.users = [];
-//     res.data.forEach(function(person){
-//       if(person.name !== $scope.currentUser) $scope.users.push(person);
-//     })
-//     $scope.users = $filter('orderBy')($scope.users, "pets.length", true)
-//     $scope.swapPet = function(pet){
-//       console.log(pet)
-
-//     }
-
-//   })
-
-//   console.log('swapping')
-
-// })
-
 .directive('alienCard', function(){
   return {
-    templateUrl: "/templates/test.html"
+    templateUrl: "templates/directives/test.html"
   }
 })
 
 .directive('memberCard', function(){
   return {
-    templateUrl: "/templates/userDetailsCard.html"
+    templateUrl: "templates/directives/userDetailsCard.html"
+  }
+})
+
+.directive('notification', function(){
+  return {
+    templateUrl: "templates/directives/notificationCard.html"
   }
 })
 

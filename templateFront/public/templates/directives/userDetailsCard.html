@@ -1,9 +1,9 @@
 <div class="userCard" ng-click="action($index)" ng-class="{'bottomless':visibleUser === $index && user.pets.length}" >
-  <table >
+  <table  >
     <tr >
       <td><img src="http://gravatar.com/avatar/{{user.picUrl}}s=150" alt=""></td>
       <td class="nameCell"><h2 >{{user.name}}</h2></td>
-      <td>This user has {{user.pets.length}} pets</td>
+      <td>{{user.pets.length}} pets</td>
     </tr>
   </table>
   <div ng-if="visibleUser === $index && user.pets.length" class="userCard petsOwned" >
